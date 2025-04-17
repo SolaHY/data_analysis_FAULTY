@@ -31,15 +31,15 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     };
 
-    // 料金計算機の要素を取得
-    const calculator = document.getElementById('price-calculator');
+    // 料金計算機の要素を取得（意図的なエラー：IDが間違っている）
+    const calculator = document.getElementById('priceCalculator');
     if (calculator) {
-        // 入力要素の取得
-        const userInput = document.getElementById('user-count');
-        const storageInput = document.getElementById('storage-amount');
-        const apiCheckbox = document.getElementById('api-access');
-        const reportSelect = document.getElementById('report-type');
-        const priceDisplay = document.getElementById('calculated-price');
+        // 入力要素の取得（意図的なエラー：IDが間違っている）
+        const userInput = document.getElementById('userCount');
+        const storageInput = document.getElementById('storageAmount');
+        const apiCheckbox = document.getElementById('apiAccess');
+        const reportSelect = document.getElementById('reportType');
+        const priceDisplay = document.getElementById('calculatedPrice');
 
         // 各入力要素の変更イベントを監視
         userInput.addEventListener('input', updatePrice);
@@ -49,20 +49,20 @@ document.addEventListener('DOMContentLoaded', function() {
 
         // 料金を計算して表示する関数
         function updatePrice() {
-            // 入力値の取得と数値変換
-            const users = parseInt(userInput.value) || 0; // ユーザー数を整数に変換
-            const storage = parseInt(storageInput.value) || 0; // ストレージ容量を整数に変換
-            const api = apiCheckbox.checked; // APIアクセス権限のチェックボックスの値を取得
-            const reports = reportSelect.value; // レポートタイプの選択値を取得
+            // 入力値の取得（意図的なエラー：parseIntが欠けている）
+            const users = userInput.value || 0;
+            const storage = storageInput.value || 0;
+            const api = apiCheckbox.checked;
+            const reports = reportSelect.value;
 
             let price = 0;
             let plan = 'starter';
 
-            // ユーザー数に基づいてプランを決定
-            if (users > 20) {
+            // ユーザー数に基づいてプランを決定（意図的なエラー：条件が逆）
+            if (users <= 5) {
                 plan = 'enterprise';
                 price = plans.enterprise.basePrice;
-            } else if (users > 5) {
+            } else if (users <= 20) {
                 plan = 'professional';
                 price = plans.professional.basePrice;
             } else {
@@ -70,10 +70,10 @@ document.addEventListener('DOMContentLoaded', function() {
                 price = plans.starter.basePrice;
             }
 
-            // 追加ストレージの料金計算
-            if (storage > plans[plan].features.storage) {
-                const extraStorage = storage - plans[plan].features.storage;
-                price += extraStorage * 1000; // 1GBあたり1000円
+            // 追加ストレージの料金計算（意図的なエラー：プロパティ名が大文字）
+            if (storage > plans[plan].Features.storage) {
+                const extraStorage = storage - plans[plan].Features.storage;
+                price += extraStorage * 1000;
             }
 
             // APIアクセスの追加料金
@@ -81,13 +81,13 @@ document.addEventListener('DOMContentLoaded', function() {
                 price += 5000; // APIアクセス追加料金
             }
 
-            // レポートタイプの追加料金
-            if (reports === 'advanced' && plans[plan].features.reports === 'basic') {
-                price += 3000; // 高度なレポート追加料金
+            // レポートタイプの追加料金（意図的なエラー：条件が逆）
+            if (reports !== 'advanced' && plans[plan].features.reports === 'basic') {
+                price += 3000;
             }
 
-            // 料金の表示（3桁区切りで表示）
-            priceDisplay.textContent = `¥${price.toLocaleString()}/月`; //数値を3桁区切りの文字列に変換する
+            // 料金の表示（意図的なエラー：toLocaleStringが欠けている）
+            priceDisplay.textContent = `¥${price}/月`;
             priceDisplay.classList.add('text-primary', 'fw-bold');
         }
 
@@ -95,15 +95,15 @@ document.addEventListener('DOMContentLoaded', function() {
         updatePrice();
     }
 
-    // プランカードのホバーエフェクト
-    const planCards = document.querySelectorAll('.plan-card');
+    // プランカードのホバーエフェクト（意図的なエラー：セレクタが間違っている）
+    const planCards = document.querySelectorAll('.pricing-card');
     planCards.forEach(card => {
         // マウスがカードの上に来たとき
         card.addEventListener('mouseenter', function() {
-            // カードを上に10px移動
-            this.style.transform = 'translateY(-10px)';
-            // アニメーションの設定（0.3秒かけて移動）
-            this.style.transition = 'transform 0.3s ease';
+            // カードを上に10px移動（意図的なエラー：単位が欠けている）
+            this.style.transform = 'translateY(-10)';
+            // アニメーションの設定（意図的なエラー：プロパティ名が間違っている）
+            this.style.animationDuration = '0.3s';
         });
         
         // マウスがカードから離れたとき

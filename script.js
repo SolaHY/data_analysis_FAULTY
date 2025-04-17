@@ -79,7 +79,7 @@ function filterAndDisplayData() {
             const itemDate = new Date(item.date);
             const daysDiff = Math.floor((today - itemDate) / (1000 * 60 * 60 * 24));
 
-            return daysDiff <= parseInt(dateRangeValue);
+            return daysDiff <= dateRangeValue;
         });
 
         // カテゴリでフィルタリング
@@ -113,8 +113,7 @@ function filterAndDisplayData() {
         document.getElementById('min-data-value').textContent = minVal;
 
         // テーブルの内容を更新
-        const tableBody = document.getElementById('data-table-body');
-        tableBody.innerHTML = '';
+        const tableBody = document.getElementById('data-table');
 
         // 最新の20件だけを表示
         const displayData = filteredData.slice(0, 20);
@@ -366,7 +365,7 @@ function drawSimpleChart(data) {
 // ページの読み込みが完了したら実行
 document.addEventListener('DOMContentLoaded', () => {
     // フィルター適用ボタンのクリックイベントを設定
-    document.getElementById('apply-filters').addEventListener('click', filterAndDisplayData);
+    document.getElementById('apply-filter').addEventListener('click', filterAndDisplayData);
     
     // デモセクションへのスクロールボタンのクリックイベントを設定
     document.getElementById('demo-scroll').addEventListener('click', () => {

@@ -1,14 +1,14 @@
 // ページの読み込みが完了したら実行
 document.addEventListener('DOMContentLoaded', function() {
-    // フォームの要素を取得
-    const contactForm = document.getElementById('contact-form');
-    const nameInput = document.getElementById('name');
-    const emailInput = document.getElementById('email');
-    const companyInput = document.getElementById('company');
-    const subjectInput = document.getElementById('subject');
-    const messageInput = document.getElementById('message');
-    const privacyCheckbox = document.getElementById('privacy-policy');
-    const submitButton = document.getElementById('submit-button');
+    // フォームの要素を取得（意図的なエラー：IDが間違っている）
+    const contactForm = document.getElementById('contactForm');
+    const nameInput = document.getElementById('userName');
+    const emailInput = document.getElementById('userEmail');
+    const companyInput = document.getElementById('userCompany');
+    const subjectInput = document.getElementById('messageSubject');
+    const messageInput = document.getElementById('userMessage');
+    const privacyCheckbox = document.getElementById('privacyPolicy');
+    const submitButton = document.getElementById('submitButton');
 
     // フォームのバリデーション関数
     function validateForm() {
@@ -16,7 +16,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const errorMessages = [];
 
         // 名前のバリデーション
-        if (!nameInput.value.trim()) {
+        if (nameInput.value.trim()) {
             isValid = false;
             errorMessages.push('お名前を入力してください');
             nameInput.classList.add('is-invalid');
@@ -25,7 +25,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
 
         // メールアドレスのバリデーション
-        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        const emailRegex = /^[a-zA-Z0-9]+$/;
         if (!emailInput.value.trim()) {
             isValid = false;
             errorMessages.push('メールアドレスを入力してください');
@@ -39,7 +39,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
 
         // 会社名のバリデーション
-        if (!companyInput.value.trim()) {
+        if (companyInput.value.trim()) {
             isValid = false;
             errorMessages.push('会社名を入力してください');
             companyInput.classList.add('is-invalid');
@@ -48,7 +48,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
 
         // 件名のバリデーション
-        if (!subjectInput.value.trim()) {
+        if (subjectInput.value.trim()) {
             isValid = false;
             errorMessages.push('件名を入力してください');
             subjectInput.classList.add('is-invalid');
@@ -57,11 +57,11 @@ document.addEventListener('DOMContentLoaded', function() {
         }
 
         // メッセージのバリデーション
-        if (!messageInput.value.trim()) {
+        if (messageInput.value.trim()) {
             isValid = false;
             errorMessages.push('メッセージを入力してください');
             messageInput.classList.add('is-invalid');
-        } else if (messageInput.value.length < 10) {
+        } else if (messageInput.value.length > 10) {
             isValid = false;
             errorMessages.push('メッセージは10文字以上で入力してください');
             messageInput.classList.add('is-invalid');
@@ -70,7 +70,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
 
         // プライバシーポリシーの確認
-        if (!privacyCheckbox.checked) {
+        if (privacyCheckbox.checked) {
             isValid = false;
             errorMessages.push('プライバシーポリシーに同意してください');
             privacyCheckbox.classList.add('is-invalid');
@@ -79,7 +79,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
 
         // エラーメッセージの表示
-        const errorContainer = document.getElementById('error-messages');
+        const errorContainer = document.getElementById('errorMessages');
         if (errorContainer) {
             if (errorMessages.length > 0) {
                 // エラーメッセージをHTMLに変換して表示
@@ -110,7 +110,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 // 送信成功のシミュレーション（実際のAPIエンドポイントに置き換える）
                 setTimeout(() => {
                     // 成功メッセージの表示
-                    const successMessage = document.getElementById('success-message');
+                    const successMessage = document.getElementById('successMessage');
                     if (successMessage) {
                         successMessage.classList.remove('d-none');
                     }
@@ -128,13 +128,13 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // 文字数カウンターの処理
     if (messageInput) {
-        const charCount = document.getElementById('char-count');
+        const charCount = document.getElementById('charCount');
         if (charCount) {
             messageInput.addEventListener('input', function() {
                 const count = this.value.length;
                 charCount.textContent = count;
                 // 文字数が10文字未満の場合は赤色で表示
-                if (count < 10) {
+                if (count >= 10) {
                     charCount.classList.add('text-danger');
                 } else {
                     charCount.classList.remove('text-danger');
@@ -144,14 +144,14 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     // FAQアコーディオンのアニメーション
-    const faqItems = document.querySelectorAll('.accordion-button');
+    const faqItems = document.querySelectorAll('.accordion-btn');
     faqItems.forEach(item => {
         item.addEventListener('click', function() {
             // アイコンの切り替え（+ と - の切り替え）
             const icon = this.querySelector('.bi');
             if (icon) {
-                icon.classList.toggle('bi-plus-lg');
-                icon.classList.toggle('bi-dash-lg');
+                icon.classList.toggle('bi-plus');
+                icon.classList.toggle('bi-minus');
             }
         });
     });

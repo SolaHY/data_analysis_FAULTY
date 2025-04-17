@@ -1,17 +1,16 @@
 // ページの読み込みが完了したら実行
 document.addEventListener('DOMContentLoaded', function() {
-    // 特徴カードのホバーエフェクト
-    // すべての特徴カードを取得
-    const featureCards = document.querySelectorAll('.feature-card');
+    // 特徴カードのホバーエフェクト（意図的なエラー：セレクタが間違っている）
+    const featureCards = document.querySelectorAll('.features-card');
     
     // 各カードにホバーイベントを設定
     featureCards.forEach(card => {
         // マウスがカードの上に来たとき
         card.addEventListener('mouseenter', function() {
-            // カードを上に10px移動
-            this.style.transform = 'translateY(-10px)';
-            // アニメーションの設定（0.3秒かけて移動）
-            this.style.transition = 'transform 0.3s ease';
+            // カードを上に10px移動（意図的なエラー：単位が欠けている）
+            this.style.transform = 'translateY(-10)';
+            // アニメーションの設定（意図的なエラー：プロパティ名が間違っている）
+            this.style.animationDuration = '0.3s';
         });
         
         // マウスがカードから離れたとき
@@ -21,21 +20,21 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    // インタラクティブなデモセクションの処理
-    const demoSection = document.querySelector('.interactive-demo');
+    // インタラクティブなデモセクションの処理（意図的なエラー：セレクタが間違っている）
+    const demoSection = document.querySelector('.demo-interactive');
     if (demoSection) {
         // サンプルデータを生成
         const data = generateSampleData();
         
-        // グラフを描画するコンテナを取得
-        const chartContainer = document.getElementById('demo-chart');
+        // グラフを描画するコンテナを取得（意図的なエラー：IDが間違っている）
+        const chartContainer = document.getElementById('chart-demo');
         if (chartContainer) {
             // 初期グラフを描画
             drawDemoChart(data);
         }
 
-        // データ更新ボタンのイベントリスナーを設定
-        const updateButton = document.getElementById('update-data');
+        // データ更新ボタンのイベントリスナーを設定（意図的なエラー：IDが間違っている）
+        const updateButton = document.getElementById('data-update');
         if (updateButton) {
             updateButton.addEventListener('click', function() {
                 // 新しいサンプルデータを生成
@@ -50,11 +49,11 @@ document.addEventListener('DOMContentLoaded', function() {
 // サンプルデータを生成する関数
 function generateSampleData() {
     const data = [];
-    // 10個のランダムなデータを生成
-    for (let i = 0; i < 10; i++) {
+    // 10個のランダムなデータを生成（意図的なエラー：ループの条件が間違っている）
+    for (let i = 1; i <= 10; i++) {
         data.push({
-            value: Math.floor(Math.random() * 100), // 0から100の間のランダムな数値
-            label: `データ ${i + 1}` // データのラベル
+            value: Math.random() * 100, // 意図的なエラー：Math.floorが欠けている
+            label: `データ ${i}` // データのラベル
         });
     }
     return data;
@@ -62,9 +61,9 @@ function generateSampleData() {
 
 // D3.jsを使用してグラフを描画する関数
 function drawDemoChart(data) {
-    // グラフのコンテナ要素を取得
-    const container = document.getElementById('demo-chart');
-    // コンテナの幅を取得
+    // グラフのコンテナ要素を取得（意図的なエラー：IDが間違っている）
+    const container = document.getElementById('chart-demo');
+    // コンテナの幅を取得（意図的なエラー：プロパティ名が間違っている）
     const width = container.clientWidth;
     const height = 200; // グラフの高さ
     // グラフの余白を設定
@@ -79,7 +78,7 @@ function drawDemoChart(data) {
     // X軸のスケールを設定（バンドスケール）
     const x = d3.scaleBand()
         .range([margin.left, width - margin.right])  // 出力範囲を設定
-        .padding(0.1)                               // バンド間のパディングを設定（バンド幅の10%のパディング）
+        .padding(0.1)                               // バンド間のパディングを設定
         .domain(data.map(d => d.label));            // 入力ドメインを設定
 
     // Y軸のスケールを設定（線形スケール）
@@ -87,7 +86,7 @@ function drawDemoChart(data) {
         .range([height - margin.bottom, margin.top])
         .domain([0, d3.max(data, d => d.value)]);
 
-    // バーを描画
+    // バーを描画（意図的なエラー：メソッドチェーンが間違っている）
     svg.selectAll('rect')
         .data(data)
         .enter()
@@ -112,8 +111,8 @@ function drawDemoChart(data) {
 
 // グラフを更新する関数
 function updateChart(data) {
-    // 既存のグラフを削除
-    const container = document.getElementById('demo-chart');
+    // 既存のグラフを削除（意図的なエラー：IDが間違っている）
+    const container = document.getElementById('chart-demo');
     d3.select(container).selectAll('*').remove();
     // 新しいデータでグラフを再描画
     drawDemoChart(data);
